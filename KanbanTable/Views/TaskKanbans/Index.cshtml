@@ -1,0 +1,33 @@
+﻿@model IEnumerable<KanbanTable.Entities.TaskKanban>
+<h2>Список заданий</h2>
+<p><a asp-action="Create">Добавить задание</a> </p>
+<table class="table">
+	<tr><th>ID</th><th>Название</th><th>Описание</th><th>Проект</th><th>Статус</th></tr>
+	@foreach (var task in Model)
+	{
+		<tr>
+			<td>@task.Id</td>
+			<td>@task.Name</td>
+			<td>@task.Description</td>
+			<td>@task.Project?.Name</td>
+			<td>@task.Status?.Name</td>
+		
+
+			<td>
+				<form asp-action="Edit" asp-controller="TaskKanbans" method="get" asp-route-id="@task.Id">
+					<input type="submit" value="Изменить" />
+				</form>
+			</td>
+			<td>
+				<form asp-controller="TaskKanbans" asp-action="Delete" method="post" asp-route-id="@task.Id">
+					<input type="submit" value="Удалить" />
+				</form>
+			</td>
+		</tr>
+	}
+</table>
+<form method="post" asp-controller="TaskKanbans" asp-action="Back">
+	<p>
+		<input type="submit" value="Вернуться на главную" />
+	</p>
+</form>

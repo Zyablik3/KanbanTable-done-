@@ -1,0 +1,70 @@
+﻿@model KanbanTable.Models.KanbanViewModel
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Канбан-доска</title>
+    <style>
+        .kanban-board {
+            display: flex;
+            justify-content: space-between;
+        }
+        .kanban-column {
+            width: 30%;
+            background-color: #f4f4f4;
+            margin: 10px;
+            padding: 10px;
+        }
+        .kanban-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+   
+
+
+</head>
+<body>
+    @foreach(var project in Model.Projects)
+    {
+        <h1><tg>Название проекта:</tg>@project.Name</h1>
+        
+            <div class="kanban-board">
+    @foreach (var customer in Model.Orders)
+    {
+            @foreach (var order in Model.Projects.Where(x => x.OrderId == customer.Id))
+                {
+                <div class="kanbanorder">
+                    <h2><tg>Заказчик:</tg>@customer.Name</h2>
+                </div>
+            
+            
+                    @foreach (var status in Model.Statuses)
+                    {
+                        <div class="kanban-column">
+                            <h3 style="color:red;">@status.Name</h3>
+
+                            @foreach(var task in Model.Tasks.Where(x => x.ProjectId == project.Id && x.StatusId == status.Id))
+                            {
+                                <div class="kanban-card">
+                                    <h4 style="color:blue;">@task.Name</h4>
+                                </div>
+                            }
+                        </div>
+            }
+                    }
+    }
+        </div>
+    }  
+
+    
+</body>
+</html>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+

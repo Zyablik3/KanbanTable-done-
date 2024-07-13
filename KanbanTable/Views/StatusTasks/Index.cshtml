@@ -1,0 +1,31 @@
+﻿@model IEnumerable<KanbanTable.Entities.StatusTask>
+<h2>Список заданий</h2>
+<p><a asp-action="Create">Добавить статус</a> </p>
+<table class="table">
+	<tr><th>ID</th><th>Название</th></tr>
+	@foreach (var status in Model)
+	{
+		<tr>
+			<td>@status.Id</td>
+			<td>@status.Name</td>
+			
+
+
+			<td>
+				<form asp-action="Edit" asp-controller="StatusTasks" method="get" asp-route-id="@status.Id">
+					<input type="submit" value="Изменить" />
+				</form>
+			</td>
+			<td>
+				<form asp-controller="StatusTasks" asp-action="Delete" method="post" asp-route-id="@status.Id">
+					<input type="submit" value="Удалить" />
+				</form>
+			</td>
+		</tr>
+	}
+</table>
+<form method="post" asp-controller="StatusTasks" asp-action="Back">
+	<p>
+		<input type="submit" value="Вернуться на главную" />
+	</p>
+</form>

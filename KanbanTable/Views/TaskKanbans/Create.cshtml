@@ -1,0 +1,56 @@
+﻿@model KanbanTable.Entities.TaskKanban
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Создать задание</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Название</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="ProjectId"> Проект</label><br />
+                <select asp-for="ProjectId">
+                    @foreach (var proect in ViewBag.proect)
+                    {
+                        <option value="@proect.Id">@proect.Name</option> //выпадающий список
+                    }
+                </select>
+            </div>
+            <div>
+                <label asp-for="StatusId"> Статус</label><br />
+                <select asp-for="StatusId">
+                    @foreach (var stat in ViewBag.stat)
+                    {
+                        <option value="@stat.Id">@stat.Name</option>//выыпадающий список
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Верунуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
