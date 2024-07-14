@@ -27,40 +27,38 @@
 
 </head>
 <body>
-    @foreach(var project in Model.Projects)
+    @foreach (var project in Model.Projects)
     {
         <h1><tg>Название проекта:</tg>@project.Name</h1>
-        
-            <div class="kanban-board">
-    @foreach (var customer in Model.Orders)
-    {
-            @foreach (var order in Model.Projects.Where(x => x.OrderId == customer.Id))
-                {
+
+        <div class="kanban-board">
+            @foreach (var customer in Model.Orders)
+            {
                 <div class="kanbanorder">
                     <h2><tg>Заказчик:</tg>@customer.Name</h2>
                 </div>
-            
-            
+
+                @foreach (var order in Model.Projects.Where(x => x.OrderId == customer.Id))
+                {
                     @foreach (var status in Model.Statuses)
                     {
                         <div class="kanban-column">
                             <h3 style="color:red;">@status.Name</h3>
 
-                            @foreach(var task in Model.Tasks.Where(x => x.ProjectId == project.Id && x.StatusId == status.Id))
+                            @foreach (var task in Model.Tasks.Where(x => x.ProjectId == project.Id && x.StatusId == status.Id))
                             {
                                 <div class="kanban-card">
                                     <h4 style="color:blue;">@task.Name</h4>
                                 </div>
                             }
                         </div>
-            }
                     }
-    }
+                }
+            }
         </div>
-    }  
-
-    
+    }
 </body>
+
 </html>
 
 @{
