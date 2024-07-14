@@ -30,16 +30,11 @@
     @foreach (var project in Model.Projects)
     {
         <h1><tg>Название проекта:</tg>@project.Name</h1>
-
+        <strong><tg>Фамилия заказчика:</tg>@project.Order.Surname</strong>
         <div class="kanban-board">
-            @foreach (var customer in Model.Orders)
-            {
-                <div class="kanbanorder">
-                    <h2><tg>Заказчик:</tg>@customer.Name</h2>
-                </div>
+           
 
-                @foreach (var order in Model.Projects.Where(x => x.OrderId == customer.Id))
-                {
+               
                     @foreach (var status in Model.Statuses)
                     {
                         <div class="kanban-column">

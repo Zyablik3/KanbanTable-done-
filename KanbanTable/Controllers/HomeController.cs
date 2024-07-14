@@ -18,7 +18,7 @@ namespace KanbanTable.Controllers
         public IActionResult Index()
         {
             var db = new Context();
-            var projects = db.ProjectKanbans.ToList();
+            var projects = db.ProjectKanbans.Include(x => x.Order).ToList();
             var tasks = db.TaskKanbans.ToList();
             var statuses = db.TaskStatuses.ToList();
             var orders = db.Customers.ToList();
